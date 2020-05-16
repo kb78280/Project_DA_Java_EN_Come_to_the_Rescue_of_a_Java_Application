@@ -1,43 +1,42 @@
 
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 
+ * @author bensedira khalid
+ *
+ */
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0; // initialize to 0
-	private static int rashCount = 0; // initialize to 0
-	private static int pupilCount = 0; // initialize to 0
 
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader(new FileReader("symptoms.txt"));
-		String line = reader.readLine();
+	static File doc = new File("symptoms.txt");
+	static List<String> list = new ArrayList<String>();
+	static Map<String, Integer> map = new HashMap<String, Integer>();
 
-		int i = 0; // set i to 0
-		int headCount = 0; // counts headaches
-		while (line != null) {
-			i++; // increment i
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
-			} else if (line.equals("rush")) {
-				rashCount++;
-			} else if (line.contains("pupils")) {
-				pupilCount++;
-			}
+	/**
+	 * File.txt Analyzes counts occurrences Sort in natural order generate a file
+	 * (results.out.txt)
+	 * 
+	 * @throws IOException relative to class3 - Signals that an I/O exception of
+	 *                     some sort has occurred. This class is the general class
+	 *                     of exceptions produced by failed or interrupted I/O
+	 *                     operations.
+	 */
+	public static void main(String[] args) throws IOException {
 
-			line = reader.readLine(); // get another symptom
-		}
+		Class1.readDoc(doc, list); // File.txt Analyzes
 
-		// next generate output
-		FileWriter writer = new FileWriter("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
+		Class2.calculOcc(list, map); // counts occurrences
+
+		Class3.docOut(map);// Sort in natural order and generate a file
+
 	}
 
 }
